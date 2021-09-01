@@ -70,12 +70,28 @@ namespace SilentBackuper
             {
                 if (key.KeyName.Contains("source"))
                 {
-                    string sourceFileName = Data["Settings"][key.KeyName];
-                    string zipFilePath = $"{MonthFolderPath}\\" +
-                                            $"{Path.GetFileNameWithoutExtension(sourceFileName)}_" +
-                                            $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
+                    string sourcePath = Data["Settings"][key.KeyName];
+                    if(!File.Exists(sourcePath) && !Directory.Exists(sourcePath))
+                    {
+                        Console.WriteLine($"Not exists - {sourcePath}" );
+                    }
+                    if (Directory.Exists(sourcePath))
+                    {
+                        string directorySource = sourcePath;
+                        string zipFilePath =    $"{MonthFolderPath}\\" +
+                                                $"{Path.GetFileName(directorySource)}_" +
+                                                $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
 
-                    CreateZipFile(zipFilePath, sourceFileName);
+                        CreateZipDirectory(zipFilePath, directorySource);
+                    } else
+                    {
+                        string fileSource = sourcePath;
+                        string zipFilePath =    $"{MonthFolderPath}\\" +
+                                                $"{Path.GetFileNameWithoutExtension(fileSource)}_" +
+                                                $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
+
+                        CreateZipFile(zipFilePath, fileSource);
+                    }
                 }
             }
             Console.WriteLine("\n\nPress any key to continue...");
@@ -98,6 +114,18 @@ namespace SilentBackuper
             // Dispose of the object when we are done
             zip.Dispose();
         }
+
+        public void CreateZipDirectory(string zipFilePath, string filePath)
+        {
+            if (File.Exists(zipFilePath))
+            {
+                Console.WriteLine($"Path {zipFilePath} already existed");
+                return;
+            }
+            ZipFile.CreateFromDirectory(filePath, zipFilePath);
+            Console.WriteLine($"Backup done {zipFilePath}");
+        }
+
 
         public void PrintHeader()
         {
