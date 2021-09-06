@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.IO.Compression;
-using IniParser.Model;
-using IniParser;
-using System.Runtime.InteropServices;
-using CommandLine.Text;
-using CommandLine;
+﻿using CommandLine;
 
 namespace SilentBackuper
 {
@@ -24,7 +13,7 @@ namespace SilentBackuper
             Parser.Default.ParseArguments<CmdOptions>(args).WithParsed<CmdOptions>(o => options = o );
 
             if (options.SettingsFile == null)
-            {   service = new BackupService("settings.ini");        }
+            {   service = new BackupService("settings.ini");}
             else
             {   service = new BackupService(options.SettingsFile);  }
                         

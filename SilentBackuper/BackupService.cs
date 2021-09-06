@@ -1,6 +1,4 @@
-﻿using IniParser;
-using IniParser.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -12,40 +10,29 @@ namespace SilentBackuper
 {
     class BackupService
     {
-        FileIniDataParser Parser = new FileIniDataParser();
-        string SettingsFile { get; set; }
 
-        IniData Data { get
-            {
-                return Parser.ReadFile(SettingsFile);
-            } 
-        }
+        IniService iniService;
 
-        string Destination
-        {
-            get
-            {
-                return Data["Settings"]["destination"];
-            }
-        }
+        public string SettingsFile { get; private set; }
 
         public BackupService(string settingsFile)
         {
+            iniService = new IniService("settings.ini");
             SettingsFile = settingsFile;
-        }       
+        }
 
 
         public void PrepareMainDestination()
         {
             //create main backup destination           
 
-            if (!Directory.Exists(Destination))
+            if (!Directory.Exists(iniService.Destination))
             {
-                Directory.CreateDirectory(Destination);
+                Directory.CreateDirectory(iniService.Destination);
             }
         }
 
-        public  void PrepareMonthFolder()
+        public void PrepareMonthFolder()
         {
             if (!Directory.Exists(MonthFolderPath))
             {
@@ -55,44 +42,44 @@ namespace SilentBackuper
 
         string MonthFolderPath
         {
-            get {
-                return Path.Combine(Destination,
+            get
+            {
+                return Path.Combine(iniService.Destination,
                     DateTime.Now.ToString("MM") + "__" + DateTime.Now.ToString("MMMM"));
             }
         }
 
-        
+
         public void DoBackup()
         {
             //get backups
             //if it files, get all files
-            foreach (var key in Data["Settings"])
+            foreach (var sourcePath in iniService.Sources)
             {
-                if (key.KeyName.Contains("source"))
+
+                if (!File.Exists(sourcePath) && !Directory.Exists(sourcePath))
                 {
-                    string sourcePath = Data["Settings"][key.KeyName];
-                    if(!File.Exists(sourcePath) && !Directory.Exists(sourcePath))
-                    {
-                        Console.WriteLine($"Not exists - {sourcePath}" );
-                    }
-                    if (Directory.Exists(sourcePath))
-                    {
-                        string directorySource = sourcePath;
-                        string zipFilePath =    $"{MonthFolderPath}\\" +
-                                                $"{Path.GetFileName(directorySource)}_" +
-                                                $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
-
-                        CreateZipDirectory(zipFilePath, directorySource);
-                    } else
-                    {
-                        string fileSource = sourcePath;
-                        string zipFilePath =    $"{MonthFolderPath}\\" +
-                                                $"{Path.GetFileNameWithoutExtension(fileSource)}_" +
-                                                $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
-
-                        CreateZipFile(zipFilePath, fileSource);
-                    }
+                    Console.WriteLine($"Not exists - {sourcePath}");
                 }
+                if (Directory.Exists(sourcePath))
+                {
+                    string directorySource = sourcePath;
+                    string zipFilePath = $"{MonthFolderPath}\\" +
+                                            $"{Path.GetFileName(directorySource)}_" +
+                                            $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
+
+                    CreateZipDirectory(zipFilePath, directorySource);
+                }
+                else
+                {
+                    string fileSource = sourcePath;
+                    string zipFilePath = $"{MonthFolderPath}\\" +
+                                            $"{Path.GetFileNameWithoutExtension(fileSource)}_" +
+                                            $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
+
+                    CreateZipFile(zipFilePath, fileSource);
+                }
+
             }
             Console.WriteLine("\n\nPress any key to continue...");
             Console.ReadKey();
@@ -130,7 +117,7 @@ namespace SilentBackuper
         public void PrintHeader()
         {
             Console.WriteLine("\n" + string.Concat(Enumerable.Repeat("*", 40)));
-            Console.WriteLine(String.Format("{0,-10}{1,-10}" , " ", DateTime.Now.ToString()));
+            Console.WriteLine(String.Format("{0,-10}{1,-10}", " ", DateTime.Now.ToString()));
             Console.WriteLine(string.Concat(Enumerable.Repeat("*", 40)) + "\n");
         }
     }
