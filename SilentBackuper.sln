@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilentBackuper", "SilentBackuper\SilentBackuper.csproj", "{440F3B71-E9BC-450F-BEE3-27C4E49D51BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiWrapper", "UiWrapper\UiWrapper.csproj", "{E40E31F2-C5C4-4D7E-B682-50939A123B58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackupManager", "BackupManager\BackupManager.csproj", "{E40E31F2-C5C4-4D7E-B682-50939A123B58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

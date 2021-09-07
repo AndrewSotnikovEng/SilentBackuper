@@ -7,10 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UiWrapper.Model;
+using BackupManager.Model;
 using BackupTaskManager.ViewModels;
 
-namespace UiWrapper.ViewModels
+namespace BackupManager.ViewModels
 {
     class TaskItemWindowViewModel : IDataErrorInfo
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UiWrapper.ViewModel
+namespace BackupManager.ViewModel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

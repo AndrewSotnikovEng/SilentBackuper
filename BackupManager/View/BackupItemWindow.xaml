@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackupTaskManager.View"
-        xmlns:dl="clr-namespace:UiWrapper.Model;assembly=DataLayer"
+        xmlns:dl="clr-namespace:BackupManager.Model;assembly=DataLayer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Task Item Details"

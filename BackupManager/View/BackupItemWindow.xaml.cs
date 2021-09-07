@@ -1,6 +1,6 @@
-﻿using UiWrapper.Model;
+﻿using BackupManager.Model;
 using System.Windows;
-using UiWrapper.ViewModels;
+using BackupManager.ViewModels;
 using BackupTaskManager.ViewModels;
 
 namespace BackupTaskManager.View

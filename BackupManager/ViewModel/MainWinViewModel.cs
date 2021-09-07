@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using UiWrapper.Model;
-using UiWrapper.ViewModel;
+using BackupManager.Model;
+using BackupManager.ViewModel;
 
-namespace UiWrapper
+namespace BackupManager
 {
     class MainWinViewModel : ViewModelBase
     {
