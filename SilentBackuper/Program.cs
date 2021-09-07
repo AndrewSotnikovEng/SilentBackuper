@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using System;
+using System.IO;
 
 namespace SilentBackuper
 {
@@ -7,31 +9,24 @@ namespace SilentBackuper
 
         static void Main(string[] args)
         {
-            BackupService service = null;
-            CmdOptions options = new CmdOptions();
+            
+            string settingsFile = Path.Combine(Environment.CurrentDirectory, "settings.ini");
+            if(!File.Exists(settingsFile))
+            {
+                Console.WriteLine("Settings file wasn't found");
+                Console.WriteLine("\n\nPress any key to continue...");
+                Console.ReadKey();
+                return;
+                
+            }
+            BackupService service = new BackupService(settingsFile);
 
-            Parser.Default.ParseArguments<CmdOptions>(args).WithParsed<CmdOptions>(o => options = o );
-
-            if (options.SettingsFile == null)
-            {   service = new BackupService("settings.ini");}
-            else
-            {   service = new BackupService(options.SettingsFile);  }
-                        
             service.PrepareMainDestination();
             service.PrepareMonthFolder();
             service.PrintHeader();
             service.DoBackup();
-            
 
         }
 
-
-        public class CmdOptions
-        {
-            [Option('s', "settings", Required = false, HelpText = "Path to settings file")]
-            public string SettingsFile { get; set; }
-
-            public int ConcurrentCount { get; set; }
-        }
     }
 }
