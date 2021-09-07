@@ -26,7 +26,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -61,7 +61,7 @@
     <Compile Include="Model\BackupItemModel.cs" />
     <Compile Include="ViewModel\MainWinViewModel.cs" />
     <Compile Include="ViewModel\MessengerStatic.cs" />
-    <Compile Include="ViewModel\TaskItemWindowViewModel.cs" />
+    <Compile Include="ViewModel\BackupItemWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="View\BackupItemWindow.xaml">
       <SubType>Designer</SubType>

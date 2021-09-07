@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 namespace BackupTaskManager.ViewModels
 {
     public class MessengerStatic
-
-
-
     {
         public static event Action<object> TaskItemWindowClosedInAddMode;
 
@@ -20,6 +17,12 @@ namespace BackupTaskManager.ViewModels
         public static event Action<object> TaskItemWindowClosedInEditMode;
         public static void NotifyTaskWindowInEditModeClosed(object taskItem)
             => TaskItemWindowClosedInEditMode?.Invoke(taskItem);
+
+
+        public static event Action<object> TaskItemWindowCanceled;
+        public static void NotifyTaskWindowCanceled(object taskItem)
+            => TaskItemWindowCanceled?.Invoke(null);
+
 
 
         public static event Action<object> TaskItemWindowOpened;

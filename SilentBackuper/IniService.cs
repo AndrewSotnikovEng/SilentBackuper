@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace SilentBackuper
 {
-
-
     public class IniService
     {
 
@@ -28,7 +26,6 @@ namespace SilentBackuper
         {
             get
             {
-
                 return linesList.Where(s => s.Contains(_sourceCondition) && !s.StartsWith("#"))
                     .Select(s => s.Split('=')[1]).ToList();
             }
@@ -99,35 +96,27 @@ namespace SilentBackuper
 
             List<string> linesToDelete = linesList.Where(l =>
                                                 String.IsNullOrEmpty(l)
-                                            || 
-                                                !l.StartsWith("#") 
-                                                    && !l.StartsWith(_sourceCondition) 
+                                            ||
+                                                !l.StartsWith("#")
+                                                    && !l.StartsWith(_sourceCondition)
                                                 && !l.StartsWith(_destinationCondition)
                                             ).ToList();
-
-
-        
-
 
             foreach (var item in linesToDelete)
             {
                 linesList.Remove(item);
             }
-
-}
+        }
 
         public void SaveToFile()
         {
-
             TextWriter tw = new StreamWriter(this.SettingsFile);
 
             foreach (String s in linesList)
                 tw.WriteLine(s);
             tw.Close();
         }
-
     }
-
 }
 
 

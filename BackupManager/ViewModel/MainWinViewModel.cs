@@ -35,6 +35,7 @@ namespace BackupManager
 
             MessengerStatic.TaskItemWindowClosedInAddMode += MessengerStatic_TaskItemWindowClosedInAddMode;
             MessengerStatic.TaskItemWindowClosedInEditMode += MessengerStatic_TaskItemWindowClosedInEditMode;
+            MessengerStatic.TaskItemWindowCanceled += MessengerStatic_TaskWindowCanceled;
 
         }
 
@@ -119,6 +120,11 @@ namespace BackupManager
                     
                 }
             }
+        }
+
+        private void MessengerStatic_TaskWindowCanceled(object obj)
+        {
+            IsChangedIndicator = false;
         }
     }
 }

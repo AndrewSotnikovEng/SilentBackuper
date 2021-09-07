@@ -13,29 +13,23 @@ namespace BackupTaskManager.View
         public BackupItemWindow()
         {
             InitializeComponent();
-            DataContext = new TaskItemWindowViewModel();
+            DataContext = new BackupItemWindowViewModel();
             MessengerStatic.TaskItemWindowClosedInAddMode += CloseWin;
-            
-
-
+            MessengerStatic.TaskItemWindowCanceled += CloseWin;
         }
 
 
         public BackupItemWindow(BackupItemModel selectedItem)
         {
             InitializeComponent();
-            DataContext = new TaskItemWindowViewModel(selectedItem);
+            DataContext = new BackupItemWindowViewModel(selectedItem);
             MessengerStatic.TaskItemWindowClosedInEditMode += CloseWin;
-
+            MessengerStatic.TaskItemWindowCanceled += CloseWin;
         }
 
         private void CloseWin(object obj)
         {
             this.Close();
         }
-
-
-
-
     }
 }
