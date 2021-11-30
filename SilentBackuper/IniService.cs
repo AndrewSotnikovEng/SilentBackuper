@@ -27,7 +27,7 @@ namespace SilentBackuper
             get
             {
                 return linesList.Where(s => s.Contains(_sourceCondition) && !s.StartsWith("#"))
-                    .Select(s => s.Split('=')[1]).ToList();
+                    .Select(s => s.Split('=')[1]).OrderBy( s => s).ToList();
             }
         }
 
