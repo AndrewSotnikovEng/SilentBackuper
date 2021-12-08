@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using BackupManager.Model;
 using BackupManager.ViewModel;
+using System.IO;
 
 namespace BackupManager
 {
@@ -24,7 +25,8 @@ namespace BackupManager
             
             foreach (var item in sources)
             {
-                BackupItems.Add(new BackupItemModel(item));
+                string backgroundColor = File.Exists(item) ? "" : "#FF69B4";
+                BackupItems.Add(new BackupItemModel(item, backgroundColor));
             }
 
 
