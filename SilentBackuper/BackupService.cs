@@ -40,6 +40,15 @@ namespace SilentBackuper
             }
         }
 
+        public void PrepareDayFolder()
+        {
+            string curDayOfMonth = DateTime.Now.Day.ToString();
+            if (!Directory.Exists(Path.Combine(MonthFolderPath, curDayOfMonth)))
+            {
+                Directory.CreateDirectory(Path.Combine(MonthFolderPath, curDayOfMonth));
+            }
+        }
+
         string MonthFolderPath
         {
             get
@@ -52,6 +61,7 @@ namespace SilentBackuper
 
         public void DoBackup()
         {
+            string curDayOfMonth = DateTime.Now.Day.ToString();
             //get backups
             //if it files, get all files
             foreach (var sourcePath in iniService.Sources)
@@ -65,6 +75,7 @@ namespace SilentBackuper
                 {
                     string directorySource = sourcePath;
                     string zipFilePath = $"{MonthFolderPath}\\" +
+                                            $"{curDayOfMonth}\\" +
                                             $"{Path.GetFileName(directorySource)}_" +
                                             $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
 
@@ -74,6 +85,7 @@ namespace SilentBackuper
                 {
                     string fileSource = sourcePath;
                     string zipFilePath = $"{MonthFolderPath}\\" +
+                                            $"{curDayOfMonth}\\" +
                                             $"{Path.GetFileNameWithoutExtension(fileSource)}_" +
                                             $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}.zip";
 

@@ -22,6 +22,7 @@ namespace SilentBackuper
 
             service.PrepareMainDestination();
             service.PrepareMonthFolder();
+            service.PrepareDayFolder();
             service.PrintHeader();
             service.DoBackup();
 
